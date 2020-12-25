@@ -50,6 +50,18 @@ namespace UDM
                 return instance.SetValue(valueGetter);
             }
 
+            public IIntSlider IntSlider(int currentValue)
+            {
+                var instance = Object.Instantiate(m_registry.intSlider, m_parent);
+                return instance.SetValue(currentValue);
+            }
+
+            public IIntSlider IntSlider(Func<int> valueGetter)
+            {
+                var instance = Object.Instantiate(m_registry.intSlider, m_parent);
+                return instance.SetValue(valueGetter);
+            }
+
             public IButton Button(string title)
             {
                 var instance = Object.Instantiate(m_registry.button, m_parent);

@@ -6,7 +6,7 @@ namespace UDM
     {
         public interface IFloatSlider
         {
-            IFloatSlider ShowValue(int digits = 2);
+            IFloatSlider ShowValue(bool show = true, int digits = 2);
             IFloatSlider OnValueChanged(Action<float> action);
             IFloatSlider MinMax(float minValue, float maxValue);
         }

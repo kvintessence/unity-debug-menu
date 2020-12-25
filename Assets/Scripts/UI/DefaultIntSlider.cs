@@ -6,8 +6,8 @@ namespace UDM
 {
     namespace UI
     {
-        [AddComponentMenu("UDM/UDM - FloatSlider")]
-        public class DefaultFloatSlider : MonoBehaviour, IFloatSlider
+        [AddComponentMenu("UDM/UDM - IntSlider")]
+        public class DefaultIntSlider : MonoBehaviour, IIntSlider
         {
             [SerializeField]
             private Text m_valueText;
@@ -15,42 +15,40 @@ namespace UDM
             [SerializeField]
             private Slider m_slider;
 
-            private int m_showValueDigits = 2;
-            private Action<float> m_onChanged = null;
-            private float m_min = 0.0f;
-            private float m_max = 1.0f;
+            private Action<int> m_onChanged = null;
+            private int m_min = 0;
+            private int m_max = 100;
 
-            private float m_previousValue = 0.0f;
-            private Func<float> m_valueGetter = null;
+            private int m_previousValue = 0;
+            private Func<int> m_valueGetter = null;
 
             /************************************************************************************************/
 
-            public IFloatSlider SetValue(float value)
+            public IIntSlider SetValue(int value)
             {
                 m_previousValue = value;
                 return this;
             }
 
-            public IFloatSlider SetValue(Func<float> getter)
+            public IIntSlider SetValue(Func<int> getter)
             {
                 m_valueGetter = getter;
                 return this;
             }
 
-            public IFloatSlider ShowValue(bool show, int digits)
+            public IIntSlider ShowValue(bool show)
             {
                 m_valueText.gameObject.SetActive(show);
-                m_showValueDigits = digits;
                 return this;
             }
 
-            public IFloatSlider OnValueChanged(Action<float> action)
+            public IIntSlider OnValueChanged(Action<int> action)
             {
                 m_onChanged = action;
                 return this;
             }
 
-            public IFloatSlider MinMax(float minValue, float maxValue)
+            public IIntSlider MinMax(int minValue, int maxValue)
             {
                 if (minValue > maxValue) {
                     var temp = minValue;
@@ -72,7 +70,7 @@ namespace UDM
                 m_slider.maxValue = m_max;
                 m_previousValue = Math.Max(m_min, Math.Min(m_max, m_previousValue));
                 m_slider.value = m_valueGetter?.Invoke() ?? m_previousValue;
-                UpdateValueText(m_slider.value);
+                UpdateValueText((int)m_slider.value);
             }
 
             private void Update()
@@ -81,37 +79,38 @@ namespace UDM
                 SyncValueEverywhere(realValue, realValue);
             }
 
-            private float GetRealValue()
+            private int GetRealValue()
             {
-                return m_valueGetter?.Invoke() ?? m_slider.value;
+                return m_valueGetter?.Invoke() ?? (int)m_slider.value;
             }
 
             public void OnSliderValueChanged(float newValue)
             {
-                SyncValueEverywhere(newValue);
+                SyncValueEverywhere((int)newValue);
             }
 
-            private void SyncValueEverywhere(float newValue, float? realValueOptional = null)
+            private void SyncValueEverywhere(int newValue, int? realValueOptional = null)
             {
                 newValue = Math.Max(m_min, Math.Min(m_max, newValue));
                 var realValue = realValueOptional ?? m_valueGetter?.Invoke() ?? m_previousValue;
+                var sliderValue = (int) m_slider.value;
 
                 if (!Mathf.Approximately(realValue, newValue)) {
                     UpdateValueText(newValue);
                     m_onChanged?.Invoke(newValue);
                 }
 
-                if (!Mathf.Approximately(m_slider.value, newValue)) {
+                if (!Mathf.Approximately(sliderValue, newValue)) {
                     UpdateValueText(newValue);
                     m_slider.value = realValue;
                 }
 
-                m_previousValue = m_slider.value;
+                m_previousValue = sliderValue;
             }
 
-            private void UpdateValueText(float value)
+            private void UpdateValueText(int value)
             {
-                m_valueText.text = $"{Math.Round(value, m_showValueDigits)}";
+                m_valueText.text = $"{value}";
             }
         }
     }

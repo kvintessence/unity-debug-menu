@@ -9,6 +9,7 @@ namespace UDM
         {
             public DefaultButton button;
             public DefaultFloatSlider floatSlider;
+            public DefaultIntSlider intSlider;
             public DefaultLabel label;
 
             public GameObject separator;

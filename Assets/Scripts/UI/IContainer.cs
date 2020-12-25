@@ -12,6 +12,9 @@ namespace UDM
             IFloatSlider FloatSlider(float currentValue);
             IFloatSlider FloatSlider(Func<float> valueGetter);
 
+            IIntSlider IntSlider(int currentValue);
+            IIntSlider IntSlider(Func<int> valueGetter);
+
             IButton Button(string title);
             IButton Button(Func<string> titleGetter);
 
