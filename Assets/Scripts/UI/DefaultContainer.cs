@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -16,13 +18,6 @@ namespace UDM
             {
                 m_section = section;
                 m_registry = registry;
-                m_parent = m_section.content;
-            }
-
-            public DefaultContainer(MenuSection section, DefaultContainer anotherContainer)
-            {
-                m_section = section;
-                m_registry = anotherContainer.m_registry;
                 m_parent = m_section.content;
             }
 
@@ -72,6 +67,42 @@ namespace UDM
             {
                 var instance = Object.Instantiate(m_registry.button, m_parent);
                 return instance.Title(titleGetter);
+            }
+
+            public IDropdown<T> Dropdown<T>(T value) where T : Enum
+            {
+                var instance = Object.Instantiate(m_registry.dropdown, m_parent);
+                var dropdown = new DefaultDropdown<T>();
+                dropdown.SetRealDropdown(instance);
+                dropdown.Init(value, Enum.GetValues(typeof(T)).Cast<T>().ToList());
+                return dropdown;
+            }
+
+            public IDropdown<T> Dropdown<T>(Func<T> valueGetter) where T : Enum
+            {
+                var instance = Object.Instantiate(m_registry.dropdown, m_parent);
+                var dropdown = new DefaultDropdown<T>();
+                dropdown.SetRealDropdown(instance);
+                dropdown.Init(valueGetter, Enum.GetValues(typeof(T)).Cast<T>().ToList());
+                return dropdown;
+            }
+
+            public IDropdown<T> Dropdown<T>(T value, List<T> options)
+            {
+                var instance = Object.Instantiate(m_registry.dropdown, m_parent);
+                var dropdown = new DefaultDropdown<T>();
+                dropdown.SetRealDropdown(instance);
+                dropdown.Init(value, options);
+                return dropdown;
+            }
+
+            public IDropdown<T> Dropdown<T>(Func<T> valueGetter, List<T> options)
+            {
+                var instance = Object.Instantiate(m_registry.dropdown, m_parent);
+                var dropdown = new DefaultDropdown<T>();
+                dropdown.SetRealDropdown(instance);
+                dropdown.Init(valueGetter, options);
+                return dropdown;
             }
 
             public void Separator()

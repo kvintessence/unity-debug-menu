@@ -11,6 +11,7 @@ namespace UDM
             public DefaultFloatSlider floatSlider;
             public DefaultIntSlider intSlider;
             public DefaultLabel label;
+            public DefaultDropdown dropdown;
 
             public GameObject separator;
             public MenuSection debugMenuSection;
