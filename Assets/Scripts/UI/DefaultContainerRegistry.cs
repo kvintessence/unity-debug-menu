@@ -11,6 +11,7 @@ namespace UDM
             public DefaultFloatSlider floatSlider;
             public DefaultLabel label;
 
+            public GameObject separator;
             public MenuSection debugMenuSection;
         }
     }

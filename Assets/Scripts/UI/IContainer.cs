@@ -16,6 +16,8 @@ namespace UDM
             IButton Button(Func<string> titleGetter);
 
             void Section(string name, Action<IContainer> sectionConstructor);
+
+            void Separator();
         }
     }
 }

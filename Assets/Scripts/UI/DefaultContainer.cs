@@ -28,38 +28,43 @@ namespace UDM
 
             public ILabel Label(string text)
             {
-                var instance = UnityEngine.Object.Instantiate(m_registry.label, m_parent);
+                var instance = Object.Instantiate(m_registry.label, m_parent);
                 return instance.SetText(text);
             }
 
             public ILabel Label(Func<string> text)
             {
-                var instance = UnityEngine.Object.Instantiate(m_registry.label, m_parent);
+                var instance = Object.Instantiate(m_registry.label, m_parent);
                 return instance.SetText(text);
             }
 
             public IFloatSlider FloatSlider(float currentValue)
             {
-                var instance = UnityEngine.Object.Instantiate(m_registry.floatSlider, m_parent);
+                var instance = Object.Instantiate(m_registry.floatSlider, m_parent);
                 return instance.SetValue(currentValue);
             }
 
             public IFloatSlider FloatSlider(Func<float> valueGetter)
             {
-                var instance = UnityEngine.Object.Instantiate(m_registry.floatSlider, m_parent);
+                var instance = Object.Instantiate(m_registry.floatSlider, m_parent);
                 return instance.SetValue(valueGetter);
             }
 
             public IButton Button(string title)
             {
-                var instance = UnityEngine.Object.Instantiate(m_registry.button, m_parent);
+                var instance = Object.Instantiate(m_registry.button, m_parent);
                 return instance.Title(title);
             }
 
             public IButton Button(Func<string> titleGetter)
             {
-                var instance = UnityEngine.Object.Instantiate(m_registry.button, m_parent);
+                var instance = Object.Instantiate(m_registry.button, m_parent);
                 return instance.Title(titleGetter);
+            }
+
+            public void Separator()
+            {
+                Object.Instantiate(m_registry.separator, m_parent);
             }
 
             public void Section(string name, Action<IContainer> sectionConstructor)

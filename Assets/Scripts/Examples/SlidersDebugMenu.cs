@@ -8,29 +8,33 @@ public class FloatSlidersDebugMenu : UDM.IDebugMenu
 
     public void Construct(IContainer container)
     {
-        container.Label("Slider without value text");
+        container.Section("Float Sliders", FloatSlidersSection);
+        container.Section("Int Sliders", IntSlidersSection);
+    }
 
+    private void IntSlidersSection(IContainer container)
+    {
+        container.Label("nothing here yet!");
+    }
+
+    private void FloatSlidersSection(IContainer container)
+    {
+        container.Label("Some simple example of float value slider (without value text):");
         container.FloatSlider(m_value1)
                  .OnValueChanged(value => m_value1 = value);
+        container.Label(() => $"Value: {m_value1}");
 
-        container.Label(() => $"Slider1 Value: {m_value1}");
+        container.Separator();
 
-        container.Label("Slider with value text");
-
+        container.Label("Next two sliders share the same value, but have different min/max constraints:");
         container.FloatSlider(() => m_value2)
                  .ShowValue()
                  .MinMax(-100.0f, 100.0f)
                  .OnValueChanged(value => m_value2 = value);
-
-        container.Label(() => $"Slider2 Value: {m_value2}");
-
-        container.Label("Slider with same value");
-
         container.FloatSlider(() => m_value2)
                  .MinMax(-200.0f, 200.0f)
                  .OnValueChanged(value => m_value2 = value);
-
-        container.Label(() => $"Slider2 Value: {m_value2}");
+        container.Label(() => $"Value: {m_value2}");
     }
 
     public string Name()
