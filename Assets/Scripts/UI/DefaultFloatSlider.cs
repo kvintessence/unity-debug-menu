@@ -46,7 +46,6 @@ namespace UDM
 
             public IFloatSlider OnValueChanged(Action<float> action)
             {
-                Debug.Log("OnValueChanged");
                 m_onChanged = action;
                 return this;
             }

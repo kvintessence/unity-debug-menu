@@ -11,7 +11,7 @@ namespace UDM
             public DefaultFloatSlider floatSlider;
             public DefaultLabel label;
 
-            public CustomContainer debugMenuSection;
+            public MenuSection debugMenuSection;
         }
     }
 }

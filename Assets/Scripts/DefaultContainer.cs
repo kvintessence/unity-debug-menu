@@ -8,21 +8,21 @@ namespace UDM
         public class DefaultContainer : IContainer
         {
             private readonly Transform m_parent;
-            private readonly Transform m_globalParent;
+            private readonly MenuSection m_section;
             private readonly DefaultContainerRegistry m_registry;
 
-            public DefaultContainer(Transform parent, Transform globalParent, DefaultContainerRegistry registry)
+            public DefaultContainer(MenuSection section, DefaultContainerRegistry registry)
             {
-                m_parent = parent;
-                m_globalParent = globalParent;
+                m_section = section;
                 m_registry = registry;
+                m_parent = m_section.content;
             }
 
-            public DefaultContainer(Transform parent, DefaultContainer anotherContainer)
+            public DefaultContainer(DefaultContainer anotherContainer)
             {
-                m_parent = parent;
-                m_globalParent = anotherContainer.m_globalParent;
+                m_section = anotherContainer.m_section;
                 m_registry = anotherContainer.m_registry;
+                m_parent = m_section.content;
             }
 
             public ILabel Label(string text)

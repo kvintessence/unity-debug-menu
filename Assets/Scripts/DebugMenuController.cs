@@ -33,22 +33,25 @@ namespace UDM
             // sort by name
             m_menus.Sort((d1, d2) => string.Compare(d1.Name(), d2.Name(), StringComparison.Ordinal));
 
-            // first create all debug menus
-            foreach (var menu in m_menus) {
-                var section = Instantiate(m_registry.debugMenuSection, m_container);
-                var container = new DefaultContainer(section.content, m_container, m_registry);
-                menu.Construct(container);
-            }
-
-            // now create the main selection menu
+            // create the main selection menu
             var selectionSection = Instantiate(m_registry.debugMenuSection, m_container);
-            var selectionContainer = new DefaultContainer(selectionSection.content, m_container, m_registry);
+            var selectionContainer = new DefaultContainer(selectionSection, m_registry);
 
+            // create all inner debug menus
             foreach (var menu in m_menus) {
-                selectionContainer.Button(menu.Name);
+                var section = Instantiate(m_registry.debugMenuSection, selectionSection.subSections);
+                var container = new DefaultContainer(section, m_registry);
+                menu.Construct(container);
+
+                selectionContainer
+                   .Button(menu.Name)
+                   .OnClick(() => { section.gameObject.SetActive(!section.gameObject.activeSelf); });
+
+                section.gameObject.SetActive(false);
             }
 
             m_selectionSection = selectionSection.gameObject;
+            m_selectionSection.SetActive(false);
         }
 
         public void OnDebugButtonPressed()
