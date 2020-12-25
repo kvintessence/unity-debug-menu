@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UDM
 {
@@ -18,9 +19,9 @@ namespace UDM
                 m_parent = m_section.content;
             }
 
-            public DefaultContainer(DefaultContainer anotherContainer)
+            public DefaultContainer(MenuSection section, DefaultContainer anotherContainer)
             {
-                m_section = anotherContainer.m_section;
+                m_section = section;
                 m_registry = anotherContainer.m_registry;
                 m_parent = m_section.content;
             }
@@ -59,6 +60,27 @@ namespace UDM
             {
                 var instance = UnityEngine.Object.Instantiate(m_registry.button, m_parent);
                 return instance.Title(titleGetter);
+            }
+
+            public void Section(string name, Action<IContainer> sectionConstructor)
+            {
+                var innerSection = Object.Instantiate(m_registry.debugMenuSection, m_section.subSections);
+                var container = new DefaultContainer(innerSection, m_registry);
+                sectionConstructor(container);
+
+                var outerSection = m_section;
+                Button(name).OnClick(() => {
+                    // disable all other sections
+                    foreach (Transform subSection in outerSection.subSections) {
+                        if (!ReferenceEquals(innerSection.gameObject, subSection.gameObject))
+                            subSection.gameObject.SetActive(false);
+                    }
+
+                    // enable this particular section
+                    innerSection.gameObject.SetActive(!innerSection.gameObject.activeSelf);
+                });
+
+                innerSection.gameObject.SetActive(false);
             }
         }
     }

@@ -39,17 +39,10 @@ namespace UDM
 
             // create all inner debug menus
             foreach (var menu in m_menus) {
-                var section = Instantiate(m_registry.debugMenuSection, selectionSection.subSections);
-                var container = new DefaultContainer(section, m_registry);
-                menu.Construct(container);
-
-                selectionContainer
-                   .Button(menu.Name)
-                   .OnClick(() => { section.gameObject.SetActive(!section.gameObject.activeSelf); });
-
-                section.gameObject.SetActive(false);
+                selectionContainer.Section(menu.Name(), menu.Construct);
             }
 
+            // hide by default
             m_selectionSection = selectionSection.gameObject;
             m_selectionSection.SetActive(false);
         }

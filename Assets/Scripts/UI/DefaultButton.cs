@@ -38,7 +38,7 @@ namespace UDM
 
             /************************************************************************************************/
 
-            private void Awake()
+            private void Start()
             {
                 m_titleText.text = m_titleGetter?.Invoke() ?? m_title;
             }
