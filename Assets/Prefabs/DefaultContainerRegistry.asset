@@ -18,6 +18,8 @@ MonoBehaviour:
   intSlider: {fileID: -4142946693776964453, guid: 5b020465d6055413297c74d86ed4a1e5,
     type: 3}
   label: {fileID: 3025789650705566918, guid: bbaec44b001164e3183b2850620a6ec2, type: 3}
+  labelWithValue: {fileID: 2095066282539851258, guid: 2b2d8de1374744d0a8c0d76d24090a8c,
+    type: 3}
   dropdown: {fileID: 2304353069434761749, guid: ad6dcda5685254d9d85844d67355033f,
     type: 3}
   separator: {fileID: 2078969288134598783, guid: 6b08cf28f3df94920b54c2e8bea786cc,

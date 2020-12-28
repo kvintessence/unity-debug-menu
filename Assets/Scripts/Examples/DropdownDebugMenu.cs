@@ -31,7 +31,7 @@ public class DropdownDebugMenu : UDM.IDebugMenu
         container.Dropdown(() => m_color)
                  .CustomNaming(value => $"Color::{value}")
                  .OnValueChanged(value => m_color = value);
-        container.Label(() => $"Color: {m_color}");
+        container.LabelValue("Color", () => m_color);
 
         container.Separator();
 
@@ -45,7 +45,7 @@ public class DropdownDebugMenu : UDM.IDebugMenu
                         "(notice that the empty string will be automatically initialised to the first option):");
         container.Dropdown(m_stringValue, options)
                  .OnValueChanged(value => m_stringValue = value);
-        container.Label(() => $"String value: {m_stringValue}");
+        container.LabelValue("String value", () => m_stringValue);
 
         container.Separator();
 
@@ -59,7 +59,8 @@ public class DropdownDebugMenu : UDM.IDebugMenu
         container.Dropdown(m_score, customOptions)
                  .CustomNaming(value => value.name)
                  .OnValueChanged(value => m_score = value);
-        container.Label(() => $"{m_score.name}: {m_score.score}");
+        container.LabelValue("Score", () => m_score)
+                 .CustomNaming(v => $"{v.name}/{v.score}");
     }
 
     public string Name()

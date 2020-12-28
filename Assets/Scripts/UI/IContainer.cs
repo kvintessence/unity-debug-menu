@@ -8,7 +8,8 @@ namespace UDM
         public interface IContainer
         {
             ILabel Label(string text);
-            ILabel Label(Func<string> text);
+            ILabelWithValue<T> LabelValue<T>(string key, T value);
+            ILabelWithValue<T> LabelValue<T>(string key, Func<T> value);
 
             IFloatSlider FloatSlider(float currentValue);
             IFloatSlider FloatSlider(Func<float> valueGetter);
@@ -18,6 +19,9 @@ namespace UDM
 
             IButton Button(string title);
             IButton Button(Func<string> titleGetter);
+
+            ICheckBox CheckBox(string title, bool value);
+            ICheckBox CheckBox(string title, Func<bool> valueGetter);
 
             IDropdown<T> Dropdown<T>(T value) where T : Enum;
             IDropdown<T> Dropdown<T>(Func<T> valueGetter) where T : Enum;

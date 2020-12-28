@@ -27,10 +27,22 @@ namespace UDM
                 return instance.SetText(text);
             }
 
-            public ILabel Label(Func<string> text)
+            public ILabelWithValue<T> LabelValue<T>(string key, Func<T> value)
             {
-                var instance = Object.Instantiate(m_registry.label, m_parent);
-                return instance.SetText(text);
+                var instance = Object.Instantiate(m_registry.labelWithValue, m_parent);
+                var labelWithValue = new DefaultLabelWithValue<T>();
+                labelWithValue.SetRealLabel(instance);
+                labelWithValue.Init(key, value);
+                return labelWithValue;
+            }
+
+            public ILabelWithValue<T> LabelValue<T>(string key, T value)
+            {
+                var instance = Object.Instantiate(m_registry.labelWithValue, m_parent);
+                var labelWithValue = new DefaultLabelWithValue<T>();
+                labelWithValue.SetRealLabel(instance);
+                labelWithValue.Init(key, value);
+                return labelWithValue;
             }
 
             public IFloatSlider FloatSlider(float currentValue)
@@ -67,6 +79,20 @@ namespace UDM
             {
                 var instance = Object.Instantiate(m_registry.button, m_parent);
                 return instance.Title(titleGetter);
+            }
+
+            public ICheckBox CheckBox(string title, bool value)
+            {
+                var instance = Object.Instantiate(m_registry.checkBox, m_parent);
+                instance.SetTitle(title);
+                return instance.SetValue(value);
+            }
+
+            public ICheckBox CheckBox(string title, Func<bool> valueGetter)
+            {
+                var instance = Object.Instantiate(m_registry.checkBox, m_parent);
+                instance.SetTitle(title);
+                return instance.SetValue(valueGetter);
             }
 
             public IDropdown<T> Dropdown<T>(T value) where T : Enum

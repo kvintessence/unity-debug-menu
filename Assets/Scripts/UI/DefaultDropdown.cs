@@ -94,9 +94,6 @@ namespace UDM
                 if (m_valueGetter == null)
                     return;
 
-                if (m_options.Count == 0)
-                    return;
-
                 var realValue = m_valueGetter();
                 if (Equals(realValue, m_value))
                     return;
