@@ -16,6 +16,7 @@ namespace UDM
             public DefaultDropdown dropdown;
 
             public GameObject separator;
+            public EmptyContainerIf emptyContainerIf;
             public MenuSection debugMenuSection;
         }
     }

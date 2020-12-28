@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: DefaultContainerRegistry
   m_EditorClassIdentifier: 
   button: {fileID: 7576803696278951153, guid: 2eb7cb33932a546a2aa3f459b37dd5b5, type: 3}
+  checkBox: {fileID: 3213059106320176564, guid: 27ca7893a80b2439e9004c3d4ed1505f,
+    type: 3}
   floatSlider: {fileID: 5450535045967443600, guid: d10dc49eae5554fd999510e69864be4b,
     type: 3}
   intSlider: {fileID: -4142946693776964453, guid: 5b020465d6055413297c74d86ed4a1e5,
@@ -23,6 +25,8 @@ MonoBehaviour:
   dropdown: {fileID: 2304353069434761749, guid: ad6dcda5685254d9d85844d67355033f,
     type: 3}
   separator: {fileID: 2078969288134598783, guid: 6b08cf28f3df94920b54c2e8bea786cc,
+    type: 3}
+  emptyContainerIf: {fileID: 1755270728530646679, guid: 2f49cdd91815f48a4b063d42b7745bd0,
     type: 3}
   debugMenuSection: {fileID: 5239989080320626281, guid: 25fa0f387b0c64cc89c1349005047723,
     type: 3}

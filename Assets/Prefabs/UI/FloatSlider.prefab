@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5450535045967443601}
   - component: {fileID: 5450535045967443603}
   - component: {fileID: 5450535045967443600}
+  - component: {fileID: 8777599125657034300}
   m_Layer: 5
   m_Name: FloatSlider
   m_TagString: Untagged
@@ -78,6 +79,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_valueText: {fileID: 5450535047931866944}
   m_slider: {fileID: 5450535046990793835}
+--- !u!114 &8777599125657034300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5450535045967443566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: 20
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &5450535046269378312
 GameObject:
   m_ObjectHideFlags: 0

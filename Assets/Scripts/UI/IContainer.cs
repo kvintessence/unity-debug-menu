@@ -18,7 +18,6 @@ namespace UDM
             IIntSlider IntSlider(Func<int> valueGetter);
 
             IButton Button(string title);
-            IButton Button(Func<string> titleGetter);
 
             ICheckBox CheckBox(string title, bool value);
             ICheckBox CheckBox(string title, Func<bool> valueGetter);
@@ -29,6 +28,7 @@ namespace UDM
             IDropdown<T> Dropdown<T>(Func<T> valueGetter, List<T> options);
 
             void Section(string name, Action<IContainer> sectionConstructor);
+            void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor);
 
             void Separator();
         }

@@ -21,6 +21,13 @@ namespace UDM
                 m_parent = m_section.content;
             }
 
+            public DefaultContainer(MenuSection section, Transform content, DefaultContainerRegistry registry)
+            {
+                m_section = section;
+                m_registry = registry;
+                m_parent = content;
+            }
+
             public ILabel Label(string text)
             {
                 var instance = Object.Instantiate(m_registry.label, m_parent);
@@ -73,12 +80,6 @@ namespace UDM
             {
                 var instance = Object.Instantiate(m_registry.button, m_parent);
                 return instance.Title(title);
-            }
-
-            public IButton Button(Func<string> titleGetter)
-            {
-                var instance = Object.Instantiate(m_registry.button, m_parent);
-                return instance.Title(titleGetter);
             }
 
             public ICheckBox CheckBox(string title, bool value)
@@ -155,6 +156,15 @@ namespace UDM
                 });
 
                 innerSection.gameObject.SetActive(false);
+            }
+
+            public void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor)
+            {
+                var innerSection = Object.Instantiate(m_registry.emptyContainerIf, m_parent);
+                innerSection.condition = condition;
+
+                var container = new DefaultContainer(m_section, innerSection.content, m_registry);
+                sectionConstructor(container);
             }
         }
     }
