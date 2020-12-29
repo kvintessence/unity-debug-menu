@@ -15,6 +15,8 @@ MonoBehaviour:
   button: {fileID: 7576803696278951153, guid: 2eb7cb33932a546a2aa3f459b37dd5b5, type: 3}
   checkBox: {fileID: 3213059106320176564, guid: 27ca7893a80b2439e9004c3d4ed1505f,
     type: 3}
+  toggleButton: {fileID: 3213059106320176564, guid: 16320c350eec64555be9870e684e568d,
+    type: 3}
   floatSlider: {fileID: 5450535045967443600, guid: d10dc49eae5554fd999510e69864be4b,
     type: 3}
   intSlider: {fileID: -4142946693776964453, guid: 5b020465d6055413297c74d86ed4a1e5,

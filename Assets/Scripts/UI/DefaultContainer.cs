@@ -82,6 +82,20 @@ namespace UDM
                 return instance.Title(title);
             }
 
+            public ICheckBox ToggleButton(string title, bool value)
+            {
+                var instance = Object.Instantiate(m_registry.toggleButton, m_parent);
+                instance.SetTitle(title);
+                return instance.SetValue(value);
+            }
+
+            public ICheckBox ToggleButton(string title, Func<bool> valueGetter)
+            {
+                var instance = Object.Instantiate(m_registry.toggleButton, m_parent);
+                instance.SetTitle(title);
+                return instance.SetValue(valueGetter);
+            }
+
             public ICheckBox CheckBox(string title, bool value)
             {
                 var instance = Object.Instantiate(m_registry.checkBox, m_parent);
@@ -144,18 +158,21 @@ namespace UDM
                 sectionConstructor(container);
 
                 var outerSection = m_section;
-                Button(name).OnClick(() => {
+                var innerSectionObject = innerSection.gameObject;
+                innerSectionObject.SetActive(false);
+
+                ToggleButton(name, () => innerSectionObject.activeSelf).OnValueChanged((active) => {
                     // disable all other sections
-                    foreach (Transform subSection in outerSection.subSections) {
-                        if (!ReferenceEquals(innerSection.gameObject, subSection.gameObject))
-                            subSection.gameObject.SetActive(false);
+                    if (active) {
+                        foreach (Transform subSection in outerSection.subSections) {
+                            if (!ReferenceEquals(innerSectionObject, subSection.gameObject))
+                                subSection.gameObject.SetActive(false);
+                        }
                     }
 
-                    // enable this particular section
-                    innerSection.gameObject.SetActive(!innerSection.gameObject.activeSelf);
+                    // enable/disable this particular section
+                    innerSectionObject.SetActive(active);
                 });
-
-                innerSection.gameObject.SetActive(false);
             }
 
             public void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor)

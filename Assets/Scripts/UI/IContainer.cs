@@ -19,6 +19,9 @@ namespace UDM
 
             IButton Button(string title);
 
+            ICheckBox ToggleButton(string title, bool value);
+            ICheckBox ToggleButton(string title, Func<bool> valueGetter);
+
             ICheckBox CheckBox(string title, bool value);
             ICheckBox CheckBox(string title, Func<bool> valueGetter);
 

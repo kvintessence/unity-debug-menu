@@ -9,6 +9,7 @@ namespace UDM
         {
             public DefaultButton button;
             public DefaultCheckBox checkBox;
+            public DefaultCheckBox toggleButton;
             public DefaultFloatSlider floatSlider;
             public DefaultIntSlider intSlider;
             public DefaultLabel label;
