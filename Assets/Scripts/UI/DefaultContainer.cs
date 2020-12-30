@@ -161,7 +161,10 @@ namespace UDM
                 var innerSectionObject = innerSection.gameObject;
                 innerSectionObject.SetActive(false);
 
-                ToggleButton(name, () => innerSectionObject.activeSelf).OnValueChanged((active) => {
+                var toggleButton = Object.Instantiate(m_registry.toggleButton, m_parent);
+                toggleButton.SetTitle(name);
+                toggleButton.SetValue(() => innerSectionObject.activeSelf);
+                toggleButton.OnValueChanged((active) => {
                     // disable all other sections
                     if (active) {
                         foreach (Transform subSection in outerSection.subSections) {
@@ -173,6 +176,9 @@ namespace UDM
                     // enable/disable this particular section
                     innerSectionObject.SetActive(active);
                 });
+                toggleButton.onDisable += () => {
+                    innerSectionObject.SetActive(false);
+                };
             }
 
             public void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor)

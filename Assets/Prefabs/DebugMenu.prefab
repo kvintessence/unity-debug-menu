@@ -388,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_container: {fileID: 7889903004083706392}
   m_registry: {fileID: 11400000, guid: e96a5c9ce7c53426a8872f55bfe8fc27, type: 2}
+  m_debugButton: {fileID: 7889903004208916458}
 --- !u!223 &3010171731316342963
 Canvas:
   m_ObjectHideFlags: 0

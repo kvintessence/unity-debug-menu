@@ -20,6 +20,8 @@ namespace UDM
             private Func<bool> m_valueGetter = null;
             private bool m_value = false;
 
+            public Action onDisable = null;
+
             /************************************************************************************************/
 
             public ICheckBox SetValue(bool value)
@@ -52,6 +54,11 @@ namespace UDM
             {
                 m_value = m_valueGetter?.Invoke() ?? m_value;
                 m_toggle.SetIsOnWithoutNotify(m_value);
+            }
+
+            private void OnDisable()
+            {
+                onDisable?.Invoke();
             }
 
             private void Update()

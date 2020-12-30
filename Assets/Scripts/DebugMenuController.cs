@@ -14,6 +14,9 @@ namespace UDM
         [SerializeField]
         private DefaultContainerRegistry m_registry;
 
+        [SerializeField]
+        private RectTransform m_debugButton;
+
         private GameObject m_selectionSection = null;
         private List<IDebugMenu> m_menus = new List<IDebugMenu>();
 
