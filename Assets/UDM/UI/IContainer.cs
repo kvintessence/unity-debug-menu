@@ -27,8 +27,8 @@ namespace UDM
 
             IDropdown<T> Dropdown<T>(T value) where T : Enum;
             IDropdown<T> Dropdown<T>(Func<T> valueGetter) where T : Enum;
-            IDropdown<T> Dropdown<T>(T value, List<T> options);
-            IDropdown<T> Dropdown<T>(Func<T> valueGetter, List<T> options);
+            IDropdown<T> Dropdown<T>(T value, IEnumerable<T> options);
+            IDropdown<T> Dropdown<T>(Func<T> valueGetter, IEnumerable<T> options);
 
             void Section(string name, Action<IContainer> sectionConstructor);
             void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor);
