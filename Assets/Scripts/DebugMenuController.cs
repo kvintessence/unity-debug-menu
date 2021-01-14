@@ -54,5 +54,13 @@ namespace UDM
         {
             m_selectionSection.SetActive(!m_selectionSection.activeSelf);
         }
+
+        public void SetDebugButtonVerticalAnchor(float value)
+        {
+            var buttonTransform = m_debugButton.gameObject.GetComponent<RectTransform>();
+            buttonTransform.anchorMin = new Vector2(buttonTransform.anchorMin.x, value);
+            buttonTransform.anchorMax = new Vector2(buttonTransform.anchorMax.x, value);
+            buttonTransform.pivot = new Vector2(buttonTransform.pivot.x, value);
+        }
     }
 }

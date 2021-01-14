@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UDM.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UDM
 {
@@ -14,6 +10,7 @@ namespace UDM
         private void Awake()
         {
             var menuInstance = Instantiate(m_menu);
+            menuInstance.SetDebugButtonVerticalAnchor(0.33f);
             DontDestroyOnLoad(menuInstance);
         }
     }
