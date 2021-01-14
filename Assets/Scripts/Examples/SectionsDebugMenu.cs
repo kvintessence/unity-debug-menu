@@ -22,7 +22,7 @@ namespace Examples
                      .OnValueChanged((value) => m_visible = value);
             container.ShowIf(() => m_visible, (c1) => {
                 c1.Section("Secret section", (c2) => {
-                    c2.Label("You are inside the secret section!");
+                    c2.Label("Wow, so secret!");
                 });
             });
         }

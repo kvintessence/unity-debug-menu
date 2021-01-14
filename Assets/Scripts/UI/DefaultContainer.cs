@@ -177,7 +177,9 @@ namespace UDM
                     innerSectionObject.SetActive(active);
                 });
                 toggleButton.onDisable += () => {
-                    innerSectionObject.SetActive(false);
+                    // force hide when the button is unavailable BUT the menu is visible
+                    if (m_section.gameObject.activeInHierarchy)
+                        innerSectionObject.SetActive(false);
                 };
             }
 
