@@ -69,6 +69,11 @@ namespace UDM
             return m_selectionSection.activeSelf;
         }
 
+        public GameObject DebugButton()
+        {
+            return m_debugButton.gameObject;
+        }
+
         public void SetDebugButtonVerticalAnchor(float value)
         {
             var buttonTransform = m_debugButton.gameObject.GetComponent<RectTransform>();
