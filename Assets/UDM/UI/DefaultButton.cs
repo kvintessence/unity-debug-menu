@@ -16,6 +16,9 @@ namespace UDM
             private Func<string> m_titleGetter = null;
             private Action m_onClick = null;
 
+            private Action m_onCloseDebugMenu = null;
+            private bool m_closeDebugMenu = false;
+
             /************************************************************************************************/
 
             public IButton Title(string title)
@@ -33,6 +36,18 @@ namespace UDM
             public IButton OnClick(Action action)
             {
                 m_onClick = action;
+                return this;
+            }
+
+            public IButton SetHideMenuOnClickAction(Action onCloseDebugMenu)
+            {
+                m_onCloseDebugMenu = onCloseDebugMenu;
+                return this;
+            }
+
+            public IButton HideMenuOnClick()
+            {
+                m_closeDebugMenu = true;
                 return this;
             }
 
@@ -58,6 +73,9 @@ namespace UDM
             public void OnButtonClicked()
             {
                 m_onClick?.Invoke();
+
+                if (m_closeDebugMenu)
+                    m_onCloseDebugMenu?.Invoke();
             }
         }
     }

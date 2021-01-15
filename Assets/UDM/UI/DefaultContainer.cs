@@ -79,6 +79,7 @@ namespace UDM
             public IButton Button(string title)
             {
                 var instance = Object.Instantiate(m_registry.button, m_parent);
+                instance.SetHideMenuOnClickAction(HideMenu);
                 return instance.Title(title);
             }
 

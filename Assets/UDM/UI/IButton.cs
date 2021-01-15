@@ -7,6 +7,7 @@ namespace UDM
         public interface IButton
         {
             IButton OnClick(Action action);
+            IButton HideMenuOnClick();
         }
     }
 }
