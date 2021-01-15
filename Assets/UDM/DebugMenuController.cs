@@ -55,8 +55,18 @@ namespace UDM
 
         public void OnDebugButtonPressed()
         {
-            m_selectionSection.SetActive(!m_selectionSection.activeSelf);
-            m_background?.gameObject.SetActive(m_selectionSection.activeSelf);
+            SetDebugMenuShown(!IsDebugMenuShown());
+        }
+
+        public void SetDebugMenuShown(bool shown)
+        {
+            m_selectionSection.SetActive(shown);
+            m_background?.gameObject.SetActive(shown);
+        }
+
+        public bool IsDebugMenuShown()
+        {
+            return m_selectionSection.activeSelf;
         }
 
         public void SetDebugButtonVerticalAnchor(float value)

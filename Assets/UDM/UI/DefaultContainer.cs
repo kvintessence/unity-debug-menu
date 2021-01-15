@@ -191,6 +191,12 @@ namespace UDM
                 var container = new DefaultContainer(m_section, innerSection.content, m_registry);
                 sectionConstructor(container);
             }
+
+            public void HideMenu()
+            {
+                foreach (var debugMenu in Object.FindObjectsOfType<DebugMenuController>())
+                    debugMenu.SetDebugMenuShown(false);
+            }
         }
     }
 }

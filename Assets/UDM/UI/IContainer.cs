@@ -34,6 +34,8 @@ namespace UDM
             void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor);
 
             void Separator();
+
+            void HideMenu();
         }
     }
 }
