@@ -17,6 +17,9 @@ namespace UDM
         [SerializeField]
         private RectTransform m_debugButton;
 
+        [SerializeField]
+        private RectTransform m_background;
+
         private GameObject m_selectionSection = null;
         private List<IDebugMenu> m_menus = new List<IDebugMenu>();
 
@@ -53,6 +56,7 @@ namespace UDM
         public void OnDebugButtonPressed()
         {
             m_selectionSection.SetActive(!m_selectionSection.activeSelf);
+            m_background?.gameObject.SetActive(m_selectionSection.activeSelf);
         }
 
         public void SetDebugButtonVerticalAnchor(float value)
