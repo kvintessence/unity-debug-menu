@@ -3,12 +3,12 @@
 namespace Examples
 {
     [UnityEngine.Scripting.Preserve]
-    public class SlidersIntDebugMenu : UDM.IDebugMenu
+    public class SlidersIntDebugMenu : UDM.ADebugMenu
     {
         private int m_intValue1 = 0;
         private int m_intValue2 = 0;
 
-        public void Construct(IContainer container)
+        public override void Construct(IContainer container)
         {
             container.Label("Some simple example of value slider (without value text) that can be either 0 or 1:");
             container.IntSlider(m_intValue1)
@@ -30,7 +30,7 @@ namespace Examples
             container.LabelValue("Value", () => m_intValue2);
         }
 
-        public string Name()
+        public override string Name()
         {
             return "Sliders - Int";
         }

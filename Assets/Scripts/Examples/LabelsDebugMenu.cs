@@ -4,15 +4,17 @@ using UnityEngine;
 namespace Examples
 {
     [UnityEngine.Scripting.Preserve]
-    public class LabelsDebugMenu : UDM.IDebugMenu
+    public class LabelsDebugMenu : UDM.ADebugMenu
     {
+        private int m_counter = 0;
+
         private class LeaderboardEntry
         {
             public int score;
             public string name;
         }
 
-        public void Construct(IContainer container)
+        public override void Construct(IContainer container)
         {
             container.Label("Simple label example.");
 
@@ -28,13 +30,23 @@ namespace Examples
 
             container.Separator();
 
+            container.Label("You can also use some of Unity event functions:");
+            container.LabelValue("Updates counter", () => m_counter);
+
+            container.Separator();
+
             var scoreEntry = new LeaderboardEntry {name = "Henry", score = 12};
             container.Label("You can have a custom naming function for a label value:");
             container.LabelValue("Score", scoreEntry)
                      .CustomNaming(v => $"{v.name}/{v.score}");
         }
 
-        public string Name()
+        public override void Update()
+        {
+            m_counter++;
+        }
+
+        public override string Name()
         {
             return "Labels";
         }

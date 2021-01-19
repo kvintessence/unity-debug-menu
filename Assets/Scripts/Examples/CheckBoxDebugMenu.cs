@@ -3,12 +3,12 @@
 namespace Examples
 {
     [UnityEngine.Scripting.Preserve]
-    public class CheckBoxDebugMenu : UDM.IDebugMenu
+    public class CheckBoxDebugMenu : UDM.ADebugMenu
     {
         private bool m_flag1 = true;
         private bool m_flag2 = false;
 
-        public void Construct(IContainer container)
+        public override void Construct(IContainer container)
         {
             container.Label("Some simple examples of check boxes:");
 
@@ -21,7 +21,7 @@ namespace Examples
             container.LabelValue("Value", () => m_flag2);
         }
 
-        public string Name()
+        public override string Name()
         {
             return "Check Boxes";
         }

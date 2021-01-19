@@ -3,17 +3,21 @@
 namespace Examples
 {
     [UnityEngine.Scripting.Preserve]
-    public class SectionsDebugMenu : UDM.IDebugMenu
+    public class SectionsDebugMenu : UDM.ADebugMenu
     {
         private bool m_visible = false;
+        private readonly InnerSectionDebugMenu m_innerSection = new InnerSectionDebugMenu();
 
-        public void Construct(IContainer container)
+        public override void Construct(IContainer container)
         {
             container.Label("You can create inner sections:");
-            container.Section("Section 1", (innerContainer) => {
-                innerContainer.Label("I'm inside inner section!");
-            });
-            container.Section("Section 2", ExtraSection);
+            container.Section(m_innerSection);
+            container.LabelValue("Is active:", () => m_innerSection.isActive);
+
+            container.Separator();
+
+            container.Label("They can nest several times:");
+            container.Section("Extra section", ExtraSection);
 
             container.Separator();
 
@@ -33,9 +37,29 @@ namespace Examples
             container.Section("Even further", (innerContainer) => { innerContainer.Label("Hi!"); });
         }
 
-        public string Name()
+        public override string Name()
         {
             return "Sections";
+        }
+
+        private class InnerSectionDebugMenu : UDM.ADebugMenu
+        {
+            public bool isActive = false;
+
+            public override void Construct(IContainer container)
+            {
+                container.Label("I'm inside inner section!");
+            }
+
+            public override void OnEnabledChanged(bool enabled)
+            {
+                isActive = enabled;
+            }
+
+            public override string Name()
+            {
+                return "Inner Section";
+            }
         }
     }
 }

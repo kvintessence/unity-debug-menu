@@ -3,11 +3,11 @@
 namespace Examples
 {
     [UnityEngine.Scripting.Preserve]
-    public class ButtonsDebugMenu : UDM.IDebugMenu
+    public class ButtonsDebugMenu : UDM.ADebugMenu
     {
         private int m_counter = 0;
 
-        public void Construct(IContainer container)
+        public override void Construct(IContainer container)
         {
             container.LabelValue("Counter", () => m_counter);
             container.Button("+1").OnClick(() => m_counter++);
@@ -16,7 +16,7 @@ namespace Examples
             container.Button("+1").OnClick(() => m_counter++).HideMenuOnClick();
         }
 
-        public string Name()
+        public override string Name()
         {
             return "Buttons";
         }

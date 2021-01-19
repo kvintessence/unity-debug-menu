@@ -11,6 +11,8 @@ namespace UDM
             public Transform content;
             [SerializeField]
             public Transform subSections;
+            [SerializeField]
+            public MenuSectionContentCallbacks contentCallbacks;
         }
     }
 }

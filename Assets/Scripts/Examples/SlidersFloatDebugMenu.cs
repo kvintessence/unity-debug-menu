@@ -3,12 +3,12 @@
 namespace Examples
 {
     [UnityEngine.Scripting.Preserve]
-    public class SlidersFloatDebugMenu : UDM.IDebugMenu
+    public class SlidersFloatDebugMenu : UDM.ADebugMenu
     {
         private float m_floatValue1 = 0.0f;
         private float m_floatValue2 = 0.0f;
 
-        public void Construct(IContainer container)
+        public override void Construct(IContainer container)
         {
             container.Label("Some simple example of value slider (without value text) between 0 and 1:");
             container.FloatSlider(m_floatValue1)
@@ -30,7 +30,7 @@ namespace Examples
             container.LabelValue("Value", () => m_floatValue2);
         }
 
-        public string Name()
+        public override string Name()
         {
             return "Sliders - Float";
         }

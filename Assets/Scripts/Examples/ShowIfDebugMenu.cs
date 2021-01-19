@@ -3,7 +3,7 @@
 namespace Examples
 {
     [UnityEngine.Scripting.Preserve]
-    public class ShowIfDebugMenu : UDM.IDebugMenu
+    public class ShowIfDebugMenu : UDM.ADebugMenu
     {
         private enum Color
         {
@@ -14,7 +14,7 @@ namespace Examples
 
         private Color m_color = Color.Green;
 
-        public void Construct(IContainer container)
+        public override void Construct(IContainer container)
         {
             container.Label("For each color selected there's a unique input, so you can customize it depending on previous input:");
 
@@ -44,7 +44,7 @@ namespace Examples
                      .MinMax(0.0f, 1.0f);
         }
 
-        public string Name()
+        public override string Name()
         {
             return "Show If";
         }

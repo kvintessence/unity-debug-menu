@@ -30,7 +30,9 @@ namespace UDM
             IDropdown<T> Dropdown<T>(T value, IEnumerable<T> options);
             IDropdown<T> Dropdown<T>(Func<T> valueGetter, IEnumerable<T> options);
 
+            void Section(ADebugMenu section);
             void Section(string name, Action<IContainer> sectionConstructor);
+
             void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor);
 
             void Separator();

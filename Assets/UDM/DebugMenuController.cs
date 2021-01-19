@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UDM.UI;
 using UnityEngine;
 
@@ -21,18 +20,18 @@ namespace UDM
         private RectTransform m_background;
 
         private GameObject m_selectionSection = null;
-        private List<IDebugMenu> m_menus = new List<IDebugMenu>();
+        private List<ADebugMenu> m_menus = new List<ADebugMenu>();
 
         private void Awake()
         {
             // create all debug menus existing in app
             foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies()) {
                 foreach (var type in assembly.GetTypes()) {
-                    if (type.IsInterface || !type.IsPublic || !type.GetInterfaces().Contains(typeof(IDebugMenu)))
+                    if (!type.IsClass || !type.IsPublic || type.IsAbstract || !type.IsSubclassOf(typeof(ADebugMenu)))
                         continue;
 
                     var instance = Activator.CreateInstance(type);
-                    m_menus.Add(instance as IDebugMenu);
+                    m_menus.Add(instance as ADebugMenu);
                 }
             }
 
@@ -45,7 +44,7 @@ namespace UDM
 
             // create all inner debug menus
             foreach (var menu in m_menus) {
-                selectionContainer.Section(menu.Name(), menu.Construct);
+                selectionContainer.Section(menu);
             }
 
             // hide by default

@@ -152,9 +152,20 @@ namespace UDM
                 Object.Instantiate(m_registry.separator, m_parent);
             }
 
+            public void Section(ADebugMenu debugMenu)
+            {
+                Section(debugMenu.Name(), debugMenu.Construct, debugMenu);
+            }
+
             public void Section(string name, Action<IContainer> sectionConstructor)
             {
+                Section(name, sectionConstructor, debugMenu: null);
+            }
+
+            private void Section(string name, Action<IContainer> sectionConstructor, ADebugMenu debugMenu)
+            {
                 var innerSection = Object.Instantiate(m_registry.debugMenuSection, m_section.subSections);
+                innerSection.contentCallbacks.debugMenu = debugMenu;
                 var container = new DefaultContainer(innerSection, m_registry);
                 sectionConstructor(container);
 
