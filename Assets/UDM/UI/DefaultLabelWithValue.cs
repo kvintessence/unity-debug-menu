@@ -71,7 +71,10 @@ namespace UDM
 
             private void Start()
             {
-                m_label.keyText.text = $"{m_key}:";
+                if (!m_key.EndsWith(":"))
+                    m_key = $"{m_key}:";
+
+                m_label.keyText.text = m_key;
                 m_value = (m_valueGetter != null) ? m_valueGetter() : m_value;
                 RecreateValueLabel(m_value);
             }
