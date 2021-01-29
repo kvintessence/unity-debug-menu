@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +42,8 @@ namespace UDM
 
             private T m_value = default;
             private Func<T> m_valueGetter = null;
-            private List<T> m_options = null;
+            private IList<T> m_options = null;
+            private IList<T> m_cachedOptions = null;
 
             /************************************************************************************************/
 
@@ -54,14 +56,14 @@ namespace UDM
                 return this;
             }
 
-            public IDropdown<T> Init(T value, List<T> options)
+            public IDropdown<T> Init(T value, IList<T> options)
             {
                 m_value = value;
                 m_options = options;
                 return this;
             }
 
-            public IDropdown<T> Init(Func<T> valueGetter, List<T> options)
+            public IDropdown<T> Init(Func<T> valueGetter, IList<T> options)
             {
                 m_valueGetter = valueGetter;
                 m_options = options;
@@ -80,6 +82,16 @@ namespace UDM
                 return this;
             }
 
+            public IDropdown<T> ProvideNewOptions(IList<T> options)
+            {
+                m_options = options;
+
+                if (m_cachedOptions != null)
+                    RecreateDropdown(m_dropdown.dropdown.value);
+
+                return this;
+            }
+
             /************************************************************************************************/
 
             private void Start()
@@ -91,6 +103,8 @@ namespace UDM
 
             private void Update()
             {
+                CheckIfOptionsChanged();
+
                 if (m_valueGetter == null)
                     return;
 
@@ -101,6 +115,30 @@ namespace UDM
                 m_value = realValue;
                 m_dropdown.dropdown.value = GetIndexOfValue(realValue);
                 m_onChanged?.Invoke(m_value);
+            }
+
+            private bool HasOptionsChanged()
+            {
+                if (m_cachedOptions == null)
+                    return false;
+
+                if (m_cachedOptions.Count != m_options.Count)
+                    return true;
+
+                for (var i = 0; i < m_cachedOptions.Count; ++i)
+                    if (!m_options[i].Equals(m_cachedOptions[i]))
+                        return true;
+
+                return false;
+            }
+
+            private void CheckIfOptionsChanged()
+            {
+                if (!HasOptionsChanged())
+                    return;
+
+                RecreateDropdown(m_dropdown.dropdown.value);
+                OnSelectedIndexChanged(m_dropdown.dropdown.value);
             }
 
             private void OnSelectedIndexChanged(int newIndex)
@@ -124,11 +162,12 @@ namespace UDM
 
             private void RecreateDropdown(int index)
             {
-                m_dropdown.dropdown.options = m_options.ConvertAll((v) => {
+                m_cachedOptions = new List<T>(m_options);
+                m_dropdown.dropdown.options = m_options.Select((v) => {
                     var option = new Dropdown.OptionData();
                     option.text = (m_namingFunction != null) ? m_namingFunction(v) : $"{v}";
                     return option;
-                });
+                }).ToList();
 
                 if (index < 0 || index >= m_dropdown.dropdown.options.Count)
                     index = 0;

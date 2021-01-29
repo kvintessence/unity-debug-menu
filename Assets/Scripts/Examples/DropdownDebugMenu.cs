@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UDM.UI;
 
 namespace Examples
@@ -23,8 +25,19 @@ namespace Examples
         private string m_stringValue = "";
         private LeaderboardValue m_score = null;
 
+        private IList<int> m_dynamicOptions1 = new List<int> {1, 2, 3};
+        private int m_dynamicOption1 = 1;
+
+        private IDropdown<string> m_dynamicDropdown2 = null;
+        private IList<string> m_dynamicOptions2 = new List<string> {"1", "2", "3"};
+        private string m_dynamicOption2 = "1";
+
         public override void Construct(IContainer container)
         {
+            container.Section("Dynamic dropdown", EditingOptions);
+
+            container.Separator();
+
             container.Label("Here's an example of selecting Enum values:");
             container.Dropdown(() => m_color)
                      .OnValueChanged(value => m_color = value);
@@ -63,6 +76,38 @@ namespace Examples
                      .OnValueChanged(value => m_score = value);
             container.LabelValue("Score", () => m_score)
                      .CustomNaming(v => $"{v.name}/{v.score}");
+        }
+
+        private void EditingOptions(IContainer container)
+        {
+            container.Label("Dropdown may hold dynamic list of options that can be edited during runtime:");
+            container.Dropdown(() => m_dynamicOption1, m_dynamicOptions1)
+                     .OnValueChanged(v => m_dynamicOption1 = v);
+            container.LabelValue("Int value", () => m_dynamicOption1);
+            container.Horizontal(c => {
+                c.Button("Add").OnClick(() => m_dynamicOptions1.Add(m_dynamicOptions1.Count + 1));
+                c.Button("Remove").OnClick(() => {
+                    if (m_dynamicOptions1.Count > 0)
+                        m_dynamicOptions1.RemoveAt(m_dynamicOptions1.Count - 1);
+                });
+            });
+
+            container.Separator();
+
+            container.Label("You can also manually provide a new list of options:");
+            m_dynamicDropdown2 = container.Dropdown(() => m_dynamicOption2, m_dynamicOptions2)
+                                         .OnValueChanged(v => m_dynamicOption2 = v);
+            container.LabelValue("String value", () => m_dynamicOption2);
+            container.Horizontal(c => {
+                c.Button("Add").OnClick(() => {
+                    m_dynamicOptions2 = new List<string>(m_dynamicOptions2).Append($"{m_dynamicOptions2.Count + 1}").ToList();
+                    m_dynamicDropdown2.ProvideNewOptions(m_dynamicOptions2);
+                });
+                c.Button("Remove").OnClick(() => {
+                    m_dynamicOptions2 = m_dynamicOptions2.Take(Math.Max(1, m_dynamicOptions2.Count - 1)).ToList();
+                    m_dynamicDropdown2.ProvideNewOptions(m_dynamicOptions2);
+                });
+            });
         }
 
         public override string Name()

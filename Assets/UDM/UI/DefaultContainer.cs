@@ -129,21 +129,21 @@ namespace UDM
                 return dropdown;
             }
 
-            public IDropdown<T> Dropdown<T>(T value, IEnumerable<T> options)
+            public IDropdown<T> Dropdown<T>(T value, IList<T> options)
             {
                 var instance = Object.Instantiate(m_registry.dropdown, m_parent);
                 var dropdown = new DefaultDropdown<T>();
                 dropdown.SetRealDropdown(instance);
-                dropdown.Init(value, options.ToList());
+                dropdown.Init(value, options);
                 return dropdown;
             }
 
-            public IDropdown<T> Dropdown<T>(Func<T> valueGetter, IEnumerable<T> options)
+            public IDropdown<T> Dropdown<T>(Func<T> valueGetter, IList<T> options)
             {
                 var instance = Object.Instantiate(m_registry.dropdown, m_parent);
                 var dropdown = new DefaultDropdown<T>();
                 dropdown.SetRealDropdown(instance);
-                dropdown.Init(valueGetter, options.ToList());
+                dropdown.Init(valueGetter, options);
                 return dropdown;
             }
 
