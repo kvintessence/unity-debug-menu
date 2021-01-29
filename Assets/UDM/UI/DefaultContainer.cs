@@ -204,6 +204,13 @@ namespace UDM
                 sectionConstructor(container);
             }
 
+            public void Horizontal(Action<IContainer> sectionConstructor)
+            {
+                var innerSection = Object.Instantiate(m_registry.emptyContainerHorizontal, m_parent);
+                var container = new DefaultContainer(m_section, innerSection.content, m_registry);
+                sectionConstructor(container);
+            }
+
             public void HideMenu()
             {
                 foreach (var debugMenu in Object.FindObjectsOfType<DebugMenuController>())

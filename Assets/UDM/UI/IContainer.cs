@@ -34,6 +34,7 @@ namespace UDM
             void Section(string name, Action<IContainer> sectionConstructor);
 
             void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor);
+            void Horizontal(Action<IContainer> sectionConstructor);
 
             void Separator();
 

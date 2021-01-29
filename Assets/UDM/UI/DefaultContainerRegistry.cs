@@ -18,6 +18,7 @@ namespace UDM
 
             public GameObject separator;
             public EmptyContainerIf emptyContainerIf;
+            public EmptyContainer emptyContainerHorizontal;
             public MenuSection debugMenuSection;
         }
     }
