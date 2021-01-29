@@ -30,5 +30,11 @@ MonoBehaviour:
     type: 3}
   emptyContainerIf: {fileID: 1755270728530646679, guid: 2f49cdd91815f48a4b063d42b7745bd0,
     type: 3}
+  emptyContainerHorizontal: {fileID: -4996774752050585463, guid: 20167d71a701f45368a74c2d00c3c308,
+    type: 3}
+  emptyContainerVertical: {fileID: 120711177589875005, guid: b45e2c70d219042829b84592a579285d,
+    type: 3}
+  customCallbacks: {fileID: 1092141553377095967, guid: d02291a68e43e401cb141819c24e2cd7,
+    type: 3}
   debugMenuSection: {fileID: 5239989080320626281, guid: 25fa0f387b0c64cc89c1349005047723,
     type: 3}

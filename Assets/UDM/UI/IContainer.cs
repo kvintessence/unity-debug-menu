@@ -33,6 +33,8 @@ namespace UDM
             void Section(ADebugMenu section);
             void Section(string name, Action<IContainer> sectionConstructor);
 
+            IShowForEach<T> ShowForEach<T>(IList<T> values, Action<IContainer, T> sectionConstructor);
+
             void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor);
             void Horizontal(Action<IContainer> sectionConstructor);
 

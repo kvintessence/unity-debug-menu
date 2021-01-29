@@ -28,6 +28,11 @@ namespace UDM
                 m_parent = content;
             }
 
+            public DefaultContainer WithContent(Transform content)
+            {
+                return new DefaultContainer(m_section, content, m_registry);
+            }
+
             public ILabel Label(string text)
             {
                 var instance = Object.Instantiate(m_registry.label, m_parent);
@@ -195,13 +200,34 @@ namespace UDM
                 };
             }
 
+            public IShowForEach<T> ShowForEach<T>(IList<T> values, Action<IContainer, T> sectionConstructor)
+            {
+                var visual = Object.Instantiate(m_registry.customCallbacks, m_parent);
+                var instance = new DefaultShowForEach<T>();
+                instance.SetVisualElement(visual);
+                instance.SetContainer(this);
+                instance.Init(values, sectionConstructor);
+                return instance;
+            }
+
+            public EmptyContainer EmptyContainerVertical()
+            {
+                return Object.Instantiate(m_registry.emptyContainerVertical, m_parent);
+            }
+
             public void ShowIf(Func<bool> condition, Action<IContainer> sectionConstructor)
+            {
+                ShowIfEx(condition, sectionConstructor);
+            }
+
+            public EmptyContainerIf ShowIfEx(Func<bool> condition, Action<IContainer> sectionConstructor)
             {
                 var innerSection = Object.Instantiate(m_registry.emptyContainerIf, m_parent);
                 innerSection.condition = condition;
 
                 var container = new DefaultContainer(m_section, innerSection.content, m_registry);
                 sectionConstructor(container);
+                return innerSection;
             }
 
             public void Horizontal(Action<IContainer> sectionConstructor)

@@ -20,6 +20,7 @@ namespace UDM
             public EmptyContainerIf emptyContainerIf;
             public EmptyContainer emptyContainerHorizontal;
             public EmptyContainer emptyContainerVertical;
+            public CustomCallbacksComponent customCallbacks;
             public MenuSection debugMenuSection;
         }
     }
