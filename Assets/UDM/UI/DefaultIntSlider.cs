@@ -18,6 +18,7 @@ namespace UDM
             private Action<int> m_onChanged = null;
             private int m_min = 0;
             private int m_max = 100;
+            private bool m_initialized = false;
 
             private int m_previousValue = 0;
             private Func<int> m_valueGetter = null;
@@ -69,6 +70,7 @@ namespace UDM
                 m_slider.minValue = m_min;
                 m_slider.maxValue = m_max;
                 m_previousValue = Math.Max(m_min, Math.Min(m_max, m_previousValue));
+                m_initialized = true;
                 m_slider.value = m_valueGetter?.Invoke() ?? m_previousValue;
                 UpdateValueText((int)m_slider.value);
             }
@@ -86,6 +88,9 @@ namespace UDM
 
             public void OnSliderValueChanged(float newValue)
             {
+                if (!m_initialized)
+                    return;
+
                 SyncValueEverywhere((int)newValue);
             }
 
