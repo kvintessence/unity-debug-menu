@@ -30,6 +30,8 @@ MonoBehaviour:
     type: 3}
   emptyContainerIf: {fileID: 1755270728530646679, guid: 2f49cdd91815f48a4b063d42b7745bd0,
     type: 3}
+  emptyContainerBackground: {fileID: 8532403895441320714, guid: 8b5ae9a554f2f4d0c9e3b305c820ba38,
+    type: 3}
   emptyContainerHorizontal: {fileID: -4996774752050585463, guid: 20167d71a701f45368a74c2d00c3c308,
     type: 3}
   emptyContainerVertical: {fileID: 120711177589875005, guid: b45e2c70d219042829b84592a579285d,

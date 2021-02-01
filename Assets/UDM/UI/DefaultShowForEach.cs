@@ -125,8 +125,8 @@ namespace UDM
 
                 foreach (var item in toAdd) {
                     var newElement =
-                        m_itemsContainer.ShowIfEx(() => m_showEverything || Equals(m_selectedItem, item), container => {
-                            m_sectionConstructor(container, item);
+                        m_itemsContainer.ShowIfEx(() => m_showEverything || Equals(m_selectedItem, item), c1 => {
+                            c1.WithBackground(c2 => { m_sectionConstructor(c2, item); });
                         });
                     m_itemContainers[item] = newElement;
                 }

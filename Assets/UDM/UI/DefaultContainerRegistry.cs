@@ -18,6 +18,7 @@ namespace UDM
 
             public GameObject separator;
             public EmptyContainerIf emptyContainerIf;
+            public EmptyContainer emptyContainerBackground;
             public EmptyContainer emptyContainerHorizontal;
             public EmptyContainer emptyContainerVertical;
             public CustomCallbacksComponent customCallbacks;
