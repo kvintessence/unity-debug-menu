@@ -104,7 +104,7 @@ namespace Examples
                     m_dynamicDropdown2.ProvideNewOptions(m_dynamicOptions2);
                 });
                 c.Button("Remove").OnClick(() => {
-                    m_dynamicOptions2 = m_dynamicOptions2.Take(Math.Max(1, m_dynamicOptions2.Count - 1)).ToList();
+                    m_dynamicOptions2 = m_dynamicOptions2.Take(Math.Max(0, m_dynamicOptions2.Count - 1)).ToList();
                     m_dynamicDropdown2.ProvideNewOptions(m_dynamicOptions2);
                 });
             });

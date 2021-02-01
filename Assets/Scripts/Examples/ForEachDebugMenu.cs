@@ -120,7 +120,7 @@ namespace Examples
                     m_element.ProvideNewOptions(m_people);
                 });
                 container.Button("Remove").OnClick(() => {
-                    m_people = m_people.Take(Math.Max(1, m_people.Count - 1)).ToList();
+                    m_people = m_people.Take(Math.Max(0, m_people.Count - 1)).ToList();
                     m_element.ProvideNewOptions(m_people);
                 });
             }
