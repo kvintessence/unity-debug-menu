@@ -9,9 +9,6 @@ namespace Examples
     [UnityEngine.Scripting.Preserve]
     public class ForEachDebugMenu : UDM.ADebugMenu
     {
-        private IList<int> m_items = new List<int>();
-        private IShowForEach<int> m_element;
-
         public override string Name()
         {
             return "Show for Each";
@@ -28,7 +25,7 @@ namespace Examples
 
         private class SimpleForEachDebugMenu : UDM.ADebugMenu
         {
-            private IList<int> m_items = new List<int>();
+            private readonly IList<int> m_items = new List<int>();
             private IShowForEach<int> m_element;
 
             public override string Name()
@@ -54,7 +51,7 @@ namespace Examples
             private void CollectionButtons(IContainer container)
             {
                 container.Button("Add").OnClick(() => m_items.Add(m_items.Count + 1));
-                container.Button("Remove").OnClick(() => {
+                container.Button("Remove Last").OnClick(() => {
                     if (m_items.Count > 0)
                         m_items.RemoveAt(m_items.Count - 1);
                 });
@@ -78,9 +75,9 @@ namespace Examples
             }
 
             private IList<Person> m_people = new List<Person>();
-            private IList<Color> m_colors = new List<Color> {Color.Red, Color.Green, Color.Blue};
+            private readonly IList<Color> m_colors = new List<Color> {Color.Red, Color.Green, Color.Blue};
 
-            private IList<string> m_names = new List<string>
+            private readonly IList<string> m_names = new List<string>
                 {"John", "Robert", "Cassandra", "Phillip", "Anna", "Bob", "Alice"};
 
             private IShowForEach<Person> m_element;
@@ -107,6 +104,7 @@ namespace Examples
                 container.Label("Age:");
                 container.IntSlider(() => item.age).MinMax(15, 65).OnValueChanged(v => item.age = v);
                 container.Dropdown(() => item.favouriteColor).OnValueChanged(v => item.favouriteColor = v);
+                container.Button("Remove").OnClick(() => { m_people.Remove(item); });
             }
 
             private void CollectionButtons(IContainer container)
@@ -119,7 +117,7 @@ namespace Examples
                     }).ToList();
                     m_element.ProvideNewOptions(m_people);
                 });
-                container.Button("Remove").OnClick(() => {
+                container.Button("Remove Last").OnClick(() => {
                     m_people = m_people.Take(Math.Max(0, m_people.Count - 1)).ToList();
                     m_element.ProvideNewOptions(m_people);
                 });

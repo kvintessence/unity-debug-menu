@@ -86,8 +86,10 @@ namespace UDM
             {
                 m_options = options;
 
-                if (m_cachedOptions != null)
+                if (m_cachedOptions != null) {
                     RecreateDropdown(m_dropdown.dropdown.value);
+                    OnSelectedIndexChanged(m_dropdown.dropdown.value);
+                }
 
                 return this;
             }
