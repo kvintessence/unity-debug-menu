@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UDM.UI;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UDM
 {
@@ -45,6 +46,12 @@ namespace UDM
             // create all inner debug menus
             foreach (var menu in m_menus) {
                 selectionContainer.Section(menu);
+            }
+
+            // make background tappable
+            if (m_background) {
+                var closeButton = m_background.gameObject.AddComponent<Button>();
+                closeButton.onClick.AddListener(() => SetDebugMenuShown(false));
             }
 
             // hide by default
