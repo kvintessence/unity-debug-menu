@@ -37,7 +37,7 @@ namespace Examples
             {
                 container.Label("Items:");
                 container.Separator();
-                m_element = container.ShowForEach(m_items, ConstructItem);
+                m_element = container.ShowForEach(m_items, ConstructItem, withBackground: false);
                 container.Separator();
                 container.CheckBox("Show All Items", false).OnValueChanged(all => m_element.ShowEverything(all));
                 container.Horizontal(CollectionButtons);

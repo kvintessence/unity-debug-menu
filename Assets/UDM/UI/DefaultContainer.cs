@@ -200,13 +200,13 @@ namespace UDM
                 };
             }
 
-            public IShowForEach<T> ShowForEach<T>(IList<T> values, Action<IContainer, T> sectionConstructor)
+            public IShowForEach<T> ShowForEach<T>(IList<T> values, Action<IContainer, T> sectionConstructor, bool withBackground = true)
             {
                 var visual = Object.Instantiate(m_registry.customCallbacks, m_parent);
                 var instance = new DefaultShowForEach<T>();
                 instance.SetVisualElement(visual);
                 instance.SetContainer(this);
-                instance.Init(values, sectionConstructor);
+                instance.Init(values, sectionConstructor, withBackground: withBackground);
                 return instance;
             }
 

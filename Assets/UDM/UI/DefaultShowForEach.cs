@@ -13,6 +13,7 @@ namespace UDM
             private CustomCallbacksComponent m_visual = default;
             private Action<IContainer, T> m_sectionConstructor = default;
             private bool m_showEverything = false;
+            private bool m_withBackground = false;
 
             private DefaultContainer m_parentContainer = default;
             private DefaultContainer m_itemsContainer = null;
@@ -39,10 +40,12 @@ namespace UDM
                 return this;
             }
 
-            public DefaultShowForEach<T> Init(IList<T> items, Action<IContainer, T> sectionConstructor)
+            public DefaultShowForEach<T> Init(IList<T> items, Action<IContainer, T> sectionConstructor,
+                                              bool withBackground)
             {
                 m_items = items;
                 m_sectionConstructor = sectionConstructor;
+                m_withBackground = withBackground;
 
                 m_parentContainer.ShowIf(() => !m_showEverything, c => {
                     m_dropdown = c.Dropdown(() => m_selectedItem, m_items).OnValueChanged(newValue => {
@@ -126,7 +129,12 @@ namespace UDM
                 foreach (var item in toAdd) {
                     var newElement =
                         m_itemsContainer.ShowIfEx(() => m_showEverything || Equals(m_selectedItem, item), c1 => {
-                            c1.WithBackground(c2 => { m_sectionConstructor(c2, item); });
+                            if (m_withBackground) {
+                                c1.WithBackground(c2 => { m_sectionConstructor(c2, item); });
+                            }
+                            else {
+                                m_sectionConstructor(c1, item);
+                            }
                         });
                     m_itemContainers[item] = newElement;
                 }
