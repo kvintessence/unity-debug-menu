@@ -60,6 +60,22 @@ namespace UDM
                 m_min = minValue;
                 m_max = maxValue;
 
+                if (m_initialized) {
+                    // save stuff
+                    var currentValue = m_previousValue;
+                    var callback = m_onChanged;
+                    m_onChanged = null;
+
+                    // change stuff
+                    m_slider.minValue = m_min;
+                    m_slider.maxValue = m_max;
+                    currentValue = Math.Max(m_min, Math.Min(m_max, currentValue));
+
+                    // restore stuff and apply value
+                    m_onChanged = callback;
+                    SyncValueEverywhere(currentValue);
+                }
+
                 return this;
             }
 
@@ -72,7 +88,7 @@ namespace UDM
                 m_previousValue = Math.Max(m_min, Math.Min(m_max, m_previousValue));
                 m_initialized = true;
                 m_slider.value = m_valueGetter?.Invoke() ?? m_previousValue;
-                UpdateValueText((int)m_slider.value);
+                UpdateValueText((int) m_slider.value);
             }
 
             private void Update()
@@ -83,7 +99,7 @@ namespace UDM
 
             private int GetRealValue()
             {
-                return m_valueGetter?.Invoke() ?? (int)m_slider.value;
+                return m_valueGetter?.Invoke() ?? (int) m_slider.value;
             }
 
             public void OnSliderValueChanged(float newValue)
@@ -91,7 +107,7 @@ namespace UDM
                 if (!m_initialized)
                     return;
 
-                SyncValueEverywhere((int)newValue);
+                SyncValueEverywhere((int) newValue);
             }
 
             private void SyncValueEverywhere(int newValue, int? realValueOptional = null)
@@ -110,7 +126,7 @@ namespace UDM
                     m_slider.value = realValue;
                 }
 
-                m_previousValue = sliderValue;
+                m_previousValue = newValue;
             }
 
             private void UpdateValueText(int value)

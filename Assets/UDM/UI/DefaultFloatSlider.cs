@@ -62,6 +62,22 @@ namespace UDM
                 m_min = minValue;
                 m_max = maxValue;
 
+                if (m_initialized) {
+                    // save stuff
+                    var currentValue = m_previousValue;
+                    var callback = m_onChanged;
+                    m_onChanged = null;
+
+                    // change stuff
+                    m_slider.minValue = m_min;
+                    m_slider.maxValue = m_max;
+                    currentValue = Math.Max(m_min, Math.Min(m_max, currentValue));
+
+                    // restore stuff and apply value
+                    m_onChanged = callback;
+                    SyncValueEverywhere(currentValue);
+                }
+
                 return this;
             }
 
@@ -111,7 +127,7 @@ namespace UDM
                     m_slider.value = realValue;
                 }
 
-                m_previousValue = m_slider.value;
+                m_previousValue = newValue;
             }
 
             private void UpdateValueText(float value)
